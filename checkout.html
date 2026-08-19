@@ -1,0 +1,203 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | ICONLIC</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            ICONLIC
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Shop
+            </a>
+
+            <a href="#">
+                Categories
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="cart.html">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- CHECKOUT PAGE -->
+
+    <main>
+
+
+        <div class="checkout-page">
+
+
+            <!-- CHECKOUT HEADING -->
+
+            <div class="checkout-heading">
+
+                <span class="checkout-label">
+                    SECURE CHECKOUT
+                </span>
+
+
+                <h1>
+                    Complete Your Order
+                </h1>
+
+
+                <p>
+                    Almost there. Enter your delivery details below.
+                </p>
+
+            </div>
+
+
+
+            <!-- CHECKOUT CONTAINER -->
+
+            <div class="checkout-container">
+
+
+                <!-- DELIVERY DETAILS -->
+
+                <section class="delivery-section">
+
+                    <h2>
+                        Delivery Details
+                    </h2>
+
+
+                    <p>
+                        Where should we deliver your order?
+                    </p>
+
+
+                    <input
+                        type="text"
+                        id="customer-name"
+                        placeholder="Full Name"
+                    >
+
+
+                    <input
+                        type="tel"
+                        id="customer-phone"
+                        placeholder="Phone Number"
+                    >
+
+
+                    <textarea
+                        id="customer-address"
+                        rows="5"
+                        placeholder="Delivery Address"
+                    ></textarea>
+
+
+                    <button
+                        type="button"
+                        class="checkout-button"
+                        onclick="continueToPayment()"
+                    >
+                        Continue to Payment →
+                    </button>
+
+                </section>
+
+
+
+                <!-- ORDER SUMMARY -->
+
+                <section class="order-section">
+
+                    <span class="summary-label">
+                        YOUR ORDER
+                    </span>
+
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div id="checkout-items">
+                    </div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="checkout-total-box">
+
+                        <span>
+                            Total
+                        </span>
+
+
+                        <strong id="checkout-total">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+
+            <!-- SECURITY NOTE -->
+
+            <p class="secure-note">
+                🔒 Secure checkout
+            </p>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+```

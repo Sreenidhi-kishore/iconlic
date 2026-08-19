@@ -1,0 +1,132 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cart | ICONLIC</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            ICONLIC
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Shop
+            </a>
+
+            <a href="#">
+                Categories
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="cart.html">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- CART PAGE -->
+
+    <main class="cart-page">
+
+        <div class="cart-heading">
+
+            <span class="cart-label">
+                YOUR SELECTION
+            </span>
+
+            <h1>
+                Your Cart
+            </h1>
+
+            <p>
+                Review your ICONLIC picks before checkout.
+            </p>
+
+        </div>
+
+
+
+        <!-- CART PRODUCTS -->
+
+        <section class="cart-container">
+
+            <div id="cart-items"></div>
+
+
+            <!-- CART SUMMARY -->
+
+            <div class="cart-summary">
+
+                <div class="summary-label">
+                    ORDER SUMMARY
+                </div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="cart-total">
+                        Total: ₹0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="checkout-button"
+                    onclick="checkout()">
+
+                    Proceed to Checkout →
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+```
