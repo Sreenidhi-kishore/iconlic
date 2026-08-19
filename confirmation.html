@@ -1,0 +1,558 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmed | ICONLIC</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            ICONLIC
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="products.html">Shop</a>
+
+            <a href="cart.html">🛒 Cart</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- CONFIRMATION -->
+
+    <main>
+
+        <div class="confirmation-box">
+
+
+            <h1>
+                ✓ Order Confirmed!
+            </h1>
+
+
+            <h2>
+                Thank you for shopping with ICONLIC.
+            </h2>
+
+
+            <p>
+                Your demo order has been successfully placed.
+            </p>
+
+
+            <p>
+                <strong>Order ID:</strong>
+                <span id="order-id"></span>
+            </p>
+
+
+            <p>
+                <strong>Amount:</strong>
+                <span id="confirmation-total">
+                    ₹0
+                </span>
+            </p>
+
+
+            <p>
+                <strong>Payment Status:</strong>
+                ✓ Successful
+            </p>
+
+
+            <p>
+                ⚠️ This is a simulated transaction for demonstration purposes only.
+            </p>
+
+
+            <!-- INVOICE BUTTON -->
+
+            <button
+                id="invoice-button"
+                type="button">
+                DOWNLOAD INVOICE
+            </button>
+
+
+            <br><br>
+
+
+            <!-- TRACKING BUTTON -->
+
+            <button
+                type="button"
+                onclick="viewTracking()">
+                TRACK YOUR ORDER →
+            </button>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- jsPDF -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <!-- ICONLIC SCRIPT -->
+
+    <script src="script.js"></script>
+
+
+    <!-- INVOICE SCRIPT -->
+
+    <script>
+
+        document
+            .getElementById("invoice-button")
+            .addEventListener("click", function () {
+
+
+                if (!window.jspdf) {
+
+                    alert(
+                        "Invoice system could not load. Please check your internet connection."
+                    );
+
+                    return;
+
+                }
+
+
+                const savedOrder =
+                    JSON.parse(
+                        localStorage.getItem("iconlicOrder")
+                    );
+
+
+                if (!savedOrder) {
+
+                    alert(
+                        "No completed order found."
+                    );
+
+                    return;
+
+                }
+
+
+                const { jsPDF } = window.jspdf;
+
+                const doc = new jsPDF();
+
+
+
+                /* HEADER */
+
+                doc.setFontSize(24);
+
+                doc.setFont(
+                    "helvetica",
+                    "bold"
+                );
+
+                doc.setTextColor(
+                    49,
+                    90,
+                    107
+                );
+
+                doc.text(
+                    "ICONLIC",
+                    20,
+                    25
+                );
+
+
+                doc.setFontSize(11);
+
+                doc.setFont(
+                    "helvetica",
+                    "normal"
+                );
+
+                doc.setTextColor(
+                    113,
+                    129,
+                    138
+                );
+
+                doc.text(
+                    "Iconic by the choices we make.",
+                    20,
+                    33
+                );
+
+
+
+                /* INVOICE */
+
+                doc.setFontSize(18);
+
+                doc.setFont(
+                    "helvetica",
+                    "bold"
+                );
+
+                doc.setTextColor(
+                    63,
+                    120,
+                    148
+                );
+
+                doc.text(
+                    "INVOICE",
+                    150,
+                    25
+                );
+
+
+                doc.setFontSize(10);
+
+                doc.setFont(
+                    "helvetica",
+                    "normal"
+                );
+
+                doc.setTextColor(
+                    80,
+                    80,
+                    80
+                );
+
+                doc.text(
+                    "Order ID: " +
+                    savedOrder.orderID,
+                    150,
+                    33
+                );
+
+
+                doc.text(
+                    "Date: " +
+                    new Date().toLocaleDateString("en-IN"),
+                    150,
+                    40
+                );
+
+
+
+                /* LINE */
+
+                doc.setDrawColor(
+                    196,
+                    205,
+                    210
+                );
+
+                doc.line(
+                    20,
+                    48,
+                    190,
+                    48
+                );
+
+
+
+                /* TABLE HEADER */
+
+                doc.setFillColor(
+                    229,
+                    244,
+                    250
+                );
+
+                doc.rect(
+                    20,
+                    58,
+                    170,
+                    12,
+                    "F"
+                );
+
+
+                doc.setFontSize(10);
+
+                doc.setFont(
+                    "helvetica",
+                    "bold"
+                );
+
+                doc.setTextColor(
+                    49,
+                    90,
+                    107
+                );
+
+
+                doc.text(
+                    "Product",
+                    25,
+                    66
+                );
+
+
+                doc.text(
+                    "Qty",
+                    125,
+                    66
+                );
+
+
+                doc.text(
+                    "Price",
+                    145,
+                    66
+                );
+
+
+                doc.text(
+                    "Total",
+                    170,
+                    66
+                );
+
+
+
+                /* PRODUCTS */
+
+                let y = 80;
+
+
+                doc.setFont(
+                    "helvetica",
+                    "normal"
+                );
+
+                doc.setTextColor(
+                    60,
+                    60,
+                    60
+                );
+
+
+                const currentCart =
+                    JSON.parse(
+                        localStorage.getItem("iconlicCart")
+                    ) || [];
+
+
+                currentCart.forEach(
+                    function(product) {
+
+
+                        const productTotal =
+                            product.price *
+                            product.quantity;
+
+
+                        doc.text(
+                            product.name,
+                            25,
+                            y
+                        );
+
+
+                        doc.text(
+                            String(product.quantity),
+                            128,
+                            y
+                        );
+
+
+                        doc.text(
+                            "Rs. " +
+                            product.price,
+                            145,
+                            y
+                        );
+
+
+                        doc.text(
+                            "Rs. " +
+                            productTotal,
+                            170,
+                            y
+                        );
+
+
+                        y += 10;
+
+                    }
+                );
+
+
+
+                /* TOTAL */
+
+                y += 8;
+
+
+                doc.setDrawColor(
+                    196,
+                    205,
+                    210
+                );
+
+                doc.line(
+                    20,
+                    y,
+                    190,
+                    y
+                );
+
+
+                y += 15;
+
+
+                doc.setFontSize(13);
+
+                doc.setFont(
+                    "helvetica",
+                    "bold"
+                );
+
+                doc.setTextColor(
+                    49,
+                    90,
+                    107
+                );
+
+
+                doc.text(
+                    "TOTAL",
+                    135,
+                    y
+                );
+
+
+                doc.text(
+                    "Rs. " +
+                    savedOrder.total,
+                    170,
+                    y
+                );
+
+
+
+                /* PAYMENT STATUS */
+
+                y += 18;
+
+
+                doc.setFontSize(11);
+
+                doc.setTextColor(
+                    63,
+                    120,
+                    148
+                );
+
+
+                doc.text(
+                    "Payment Status: Successful",
+                    20,
+                    y
+                );
+
+
+
+                /* NOTICE */
+
+                y += 15;
+
+
+                doc.setFontSize(9);
+
+                doc.setTextColor(
+                    113,
+                    129,
+                    138
+                );
+
+
+                doc.text(
+                    "This is a simulated transaction for demonstration purposes only.",
+                    20,
+                    y
+                );
+
+
+
+                /* FOOTER */
+
+                doc.setFontSize(10);
+
+                doc.setTextColor(
+                    49,
+                    90,
+                    107
+                );
+
+
+                doc.text(
+                    "Thank you for shopping with ICONLIC!",
+                    20,
+                    275
+                );
+
+
+                doc.setTextColor(
+                    113,
+                    129,
+                    138
+                );
+
+
+                doc.text(
+                    "Iconic by the choices we make.",
+                    20,
+                    282
+                );
+
+
+
+                /* DOWNLOAD */
+
+                doc.save(
+                    "ICONLIC-Invoice-" +
+                    savedOrder.orderID +
+                    ".pdf"
+                );
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>
+```
